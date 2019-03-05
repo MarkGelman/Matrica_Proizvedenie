@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Matrici_Proizvedenie
+namespace SolutionOfTicher
 {
     class Program
     {
         static void Main(string[] args)
         {
             string[] s1 = Console.ReadLine().Split();
-            int sum = 0;
             int N = int.Parse(s1[0]);
             int M = int.Parse(s1[1]);
             int[,] mat1 = new int[N, M];
@@ -31,29 +30,28 @@ namespace Matrici_Proizvedenie
                     mat2[i, j] = int.Parse(str2[j]);
             }
             Console.WriteLine();
-            int d = 0;
-            int count = 0;
-            int count1 = 0;
-            for (int i = 0; count1 < N * K; i++)
+
+            int[,] mat3 = new int[N, K];
+            for (int i=0; i<N; i++)
             {
-                sum = 0;
-                count1++;
-                if (i > K - 1) { i = 0; d++;}
-                for (int j = 0; j < M; j++)
-                     sum += mat1[d, j] * mat2[j,i];
-                
-                if (count != K - 1)
+                for (int j=0; j<K; j++)
                 {
-                    Console.Write(sum + " ");
-                    count++;
+                    mat3[i, j] = 0;
+                    for (int k=0; k<M; k++)
+                    {
+                        mat3[i,j] += mat1[i, k] * mat2[k, j];
+                    }
                 }
-                else
-                {
-                    Console.WriteLine(sum);
-                    count = 0;
-                }
-                    
             }
-        }
+            for (int i = 0; i < N; i++)
+            {
+                for (int j = 0; j < K; j++)
+                {
+                    Console.Write(mat3[i, j]);
+                    if (j != K - 1) Console.Write(" ");
+                    else Console.WriteLine();
+
+                }
+            }
     }
 }
